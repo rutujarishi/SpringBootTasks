@@ -31,36 +31,31 @@ public class MusicController {
         }
         return responseEntity;
     }
+
     @GetMapping("/getAllTracks")
     public ResponseEntity getAllTracks() {
         return new ResponseEntity<>(musicService.getAllTracks(), HttpStatus.OK);
     }
 
-    @PostMapping("/delete")
-    public  ResponseEntity  deleteTrack( @RequestBody int trackId)
-    {
+    @DeleteMapping("/delete/{trackId}")
+    public ResponseEntity deleteTrack(@PathVariable int trackId) {
         ResponseEntity responseEntity;
         try {
-        responseEntity =new ResponseEntity<>(musicService.deleteTrack(trackId),HttpStatus.OK);
-    }
-catch (Exception ex){
-    responseEntity = new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
-        }
-        return responseEntity;
-    }
-    @PostMapping("/update/{trackId}")
-
-    public ResponseEntity UpdateComments(@RequestBody String trackcomments,int trackId){
-
-        ResponseEntity responseEntity;
-        try {
-        responseEntity= new ResponseEntity<>(musicService.UpdateComments(trackId,trackcomments), HttpStatus.OK);
-    }
-        catch (Exception ex){
+            responseEntity = new ResponseEntity<>(
+                    musicService.deleteTrack(trackId),
+                    HttpStatus.OK);
+        } catch (Exception ex) {
             responseEntity = new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
         }
         return responseEntity;
     }
 
-
+    @PutMapping("/update")
+    public ResponseEntity UpdateComments(@RequestBody Music music) {
+        return new ResponseEntity<>(
+                musicService.UpdateComments(
+                        music.getTrackId(),
+                        music.getTrackComments()),
+                HttpStatus.OK);
+    }
 }
