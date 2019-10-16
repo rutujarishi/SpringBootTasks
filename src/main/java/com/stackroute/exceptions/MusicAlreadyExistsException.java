@@ -1,5 +1,7 @@
 package com.stackroute.exceptions;
 
+
+
 public class MusicAlreadyExistsException extends Exception {
       private String message;
 

@@ -55,9 +55,9 @@ public class MusicServiceImpl implements MusicService {
         return true;
     }
 
-//    @Override
-//    public List<Music> findTitleByName(String trackName) {
-//       List<Music> list= musicRepository.findTitleByName(trackName);
-//        return  list;
-//    }
+    @Override
+    public List<Music> findTitleByName(String trackName) {
+       List<Music> list= musicRepository.findTitleByName(trackName);
+        return  list;
+    }
 }
