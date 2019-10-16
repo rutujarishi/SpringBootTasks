@@ -38,7 +38,11 @@ public class MusicServiceImpl implements MusicService {
     }
 
     @Override
-    public boolean UpdateComments(int trackId,String trackComments) {
+    public boolean UpdateComments(int trackId,String trackComments) throws TrackNotFoundException {
+        if(!(musicRepository.existsById(trackId)))
+        {
+            throw new TrackNotFoundException("Not Found");
+        }
        Music music = musicRepository.getOne(trackId);
        music.setTrackComments(trackComments);
        musicRepository.save(music);

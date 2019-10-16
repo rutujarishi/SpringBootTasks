@@ -9,7 +9,7 @@ import java.util.List;
 public interface MusicService {
     public Music saveTrack(Music track) throws MusicAlreadyExistsException;
     public List<Music> getAllTracks();
-    public boolean UpdateComments(int trackId,String trackComments);
+    public boolean UpdateComments(int trackId,String trackComments)throws TrackNotFoundException;
     public boolean deleteTrack(int trackId) throws TrackNotFoundException;
     public List<Music> findTitleByName(String trackName);
 }

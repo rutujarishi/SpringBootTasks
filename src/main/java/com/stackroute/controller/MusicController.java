@@ -32,6 +32,9 @@ public class MusicController {
         if (track.getTrackName() == null) {
             track.setTrackName(environment.getProperty("trackName"));
         }
+        if (track.getTrackComments() == null) {
+            track.setTrackComments(environment.getProperty("trackComments"));
+        }
         ResponseEntity responseEntity;
 
         responseEntity = new ResponseEntity<>(musicService.saveTrack(track), HttpStatus.OK);
@@ -59,7 +62,7 @@ public class MusicController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity UpdateComments(@RequestBody Music music) {
+    public ResponseEntity UpdateComments(@RequestBody Music music) throws TrackNotFoundException {
         return new ResponseEntity<>(
                 musicService.UpdateComments(
                         music.getTrackId(),
@@ -68,7 +71,7 @@ public class MusicController {
     }
 
     @GetMapping("/findName/{trackName}")
-    public ResponseEntity findTitleByName(@PathVariable String trackName) {
+    public ResponseEntity findTitleByName(@PathVariable String trackName){
         return new ResponseEntity<>(
                 musicService.findTitleByName(trackName),
                 HttpStatus.OK);
