@@ -44,9 +44,7 @@ public class MusicController {
     public ResponseEntity deleteTrack(@PathVariable int trackId) {
         ResponseEntity responseEntity;
         try {
-            responseEntity = new ResponseEntity<>(
-                    musicService.deleteTrack(trackId),
-                    HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(musicService.deleteTrack(trackId), HttpStatus.OK);
         } catch (TrackNotFoundException  e) {
             responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         }
@@ -62,5 +60,11 @@ public class MusicController {
                 HttpStatus.OK);
     }
 
-
+//    @GetMapping("/findName/{trackName}")
+//            public ResponseEntity findTitleByName(@PathVariable String trackName)
+//    {
+//    return  new ResponseEntity<>(
+//            musicService.findTitleByName(trackName),
+//            HttpStatus.OK);
+//    }
 }

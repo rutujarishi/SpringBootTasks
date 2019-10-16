@@ -47,7 +47,7 @@ public class MusicServiceImpl implements MusicService {
 
     @Override
     public boolean deleteTrack(int trackId) throws TrackNotFoundException {
-        if((musicRepository.existsById(trackId)))
+        if(!(musicRepository.existsById(trackId)))
         {
             throw new TrackNotFoundException("Not Found");
         }
@@ -55,5 +55,9 @@ public class MusicServiceImpl implements MusicService {
         return true;
     }
 
-
+//    @Override
+//    public List<Music> findTitleByName(String trackName) {
+//       List<Music> list= musicRepository.findTitleByName(trackName);
+//        return  list;
+//    }
 }
