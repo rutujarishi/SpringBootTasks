@@ -18,11 +18,11 @@ public class Listener implements ApplicationListener<ContextRefreshedEvent> {
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         try {
-            musicService.saveTrack(new Music(22, "Listener", "comment"));
+            musicService.saveTrack(new Music(45, "Listener", "comment"));
         } catch (MusicAlreadyExistsException muzixAlreadyExists) {
             try {
                 Music music = new Music();
-                musicService.deleteTrack(7);
+                musicService.UpdateComments(45,"comments");
             } catch (TrackNotFoundException e) {
                 System.out.println("Exceptions Thrown");
             }
@@ -30,3 +30,4 @@ public class Listener implements ApplicationListener<ContextRefreshedEvent> {
         }
     }
 }
+

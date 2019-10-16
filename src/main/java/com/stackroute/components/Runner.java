@@ -20,11 +20,13 @@ public class Runner implements CommandLineRunner {
         this.muzixService = muzixService;
     }
     @Override
-    public void run(String... args) throws Exception {
-        System.out.println("here");
-        Music music = new Music(444, name, comment);
+    public void run(String... args) throws MusicAlreadyExistsException {
+
+        Music music = new Music(3330, name, comment);
         try {
+
             muzixService.saveTrack(music);
+            System.out.println("here");
         } catch (MusicAlreadyExistsException muzixAlreadyExists) {
             System.out.println("Exception thrown");
         }
