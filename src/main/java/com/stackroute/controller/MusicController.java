@@ -62,11 +62,5 @@ public class MusicController {
                 HttpStatus.OK);
     }
 
-    @GetMapping("/findName/{trackName}")
-            public ResponseEntity findTitleByName(@PathVariable String trackName)
-    {
-    return  new ResponseEntity<>(
-            musicService.findTitleByName(trackName),
-            HttpStatus.OK);
-    }
+
 }

@@ -11,5 +11,5 @@ public interface MusicService {
     public List<Music> getAllTracks();
     public boolean UpdateComments(int trackId,String trackComments);
     public boolean deleteTrack(int trackId) throws TrackNotFoundException;
-    public List<Music> findTitleByName(String trackName);
+   // public List<Music> findTitleByName(String trackName);
 }
