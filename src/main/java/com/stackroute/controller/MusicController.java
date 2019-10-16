@@ -2,6 +2,8 @@ package com.stackroute.controller;
 
 
 import com.stackroute.domain.Music;
+import com.stackroute.exceptions.MusicAlreadyExistsException;
+import com.stackroute.exceptions.TrackNotFoundException;
 import com.stackroute.service.MusicService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +28,10 @@ public class MusicController {
         try {
 
             responseEntity = new ResponseEntity<>(musicService.saveTrack(track), HttpStatus.OK);
-        } catch (Exception ex) {
+        } catch (MusicAlreadyExistsException ex) {
             responseEntity = new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
         }
+
         return responseEntity;
     }
 
@@ -44,8 +47,8 @@ public class MusicController {
             responseEntity = new ResponseEntity<>(
                     musicService.deleteTrack(trackId),
                     HttpStatus.OK);
-        } catch (Exception ex) {
-            responseEntity = new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+        } catch (TrackNotFoundException  e) {
+            responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         }
         return responseEntity;
     }
@@ -57,5 +60,13 @@ public class MusicController {
                         music.getTrackId(),
                         music.getTrackComments()),
                 HttpStatus.OK);
+    }
+
+    @GetMapping("/findName/{trackName}")
+            public ResponseEntity findTitleByName(@PathVariable String trackName)
+    {
+    return  new ResponseEntity<>(
+            musicService.findTitleByName(trackName),
+            HttpStatus.OK);
     }
 }
