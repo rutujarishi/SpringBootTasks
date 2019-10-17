@@ -27,11 +27,11 @@ import java.util.Objects;
 //@Component
 public class Music {
     @Id
-//    @Value("${trackId}")
+//    @Value("${in.trackId}")
     private int trackId;
-//    @Value("${trackName:John}")
+//    @Value("${in.trackName}")
     private String trackName;
-  //  @Value("${trackComments:Nice}")
+  //  @Value("${in.trackComments}")
     private String trackComments;
 
 

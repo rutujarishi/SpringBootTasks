@@ -8,6 +8,7 @@ import com.stackroute.service.MusicService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,13 +16,15 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class MusicController {
-    @Qualifier("TrackDummyServiceImpl")
+//   @Qualifier("TrackDummyServiceImpl")
+@Autowired
     private MusicService musicService;
     private Environment environment;
 
-    public MusicController(@Autowired MusicService musicService, @Autowired Environment environment) {
+    public MusicController( MusicService musicService, @Autowired Environment environment) {
         this.musicService = musicService;
         this.environment = environment;
+        System.out.println(environment.getProperty("trackName"));
     }
 
 //    @RequestMapping("/error")

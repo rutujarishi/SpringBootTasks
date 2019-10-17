@@ -5,19 +5,27 @@ import com.stackroute.exceptions.TrackNotFoundException;
 import com.stackroute.respository.MusicRepository;
 import com.stackroute.domain.Music;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
+@Primary
+@Profile("prod")
 public class MusicServiceImpl implements MusicService {
 
-
     private MusicRepository musicRepository;
+
     @Autowired
     public MusicServiceImpl(MusicRepository musicRepository)
-    { this.musicRepository=musicRepository;}
+    {
+        this.musicRepository=musicRepository;
+    }
+
     @Override
     public Music saveTrack(Music track)throws MusicAlreadyExistsException{
+        System.out.println("enter the serviceimpl");
         if(musicRepository.existsById(track.getTrackId()))
         {
             throw new MusicAlreadyExistsException("Already Exist");

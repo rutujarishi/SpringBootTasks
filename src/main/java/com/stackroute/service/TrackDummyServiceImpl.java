@@ -6,18 +6,27 @@ import com.stackroute.exceptions.TrackNotFoundException;
 import com.stackroute.respository.MusicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-@Primary
+
+
 @Service
+@Profile("dev")
 public class TrackDummyServiceImpl implements MusicService {
+
     private MusicRepository musicRepository;
+
     @Autowired
     public TrackDummyServiceImpl(MusicRepository musicRepository)
-    { this.musicRepository=musicRepository;}
+    {
+        System.out.println("Constructor is called");
+        this.musicRepository=musicRepository;
+    }
+
     @Override
-    public Music saveTrack(Music track)throws MusicAlreadyExistsException{
+    public Music saveTrack(Music track)throws MusicAlreadyExistsException {
         System.out.println("Enter the track dummy impl");
         if(musicRepository.existsById(track.getTrackId()))
         {
