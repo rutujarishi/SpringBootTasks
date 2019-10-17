@@ -19,10 +19,9 @@ a) by using @Value.
 b) by using @PropertySource
 c) by using Environment
 d) by using @ConfigurationProperties
-(https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/core/env/
-Environment.html)
+
 9. Add @Lombok
-(https://drive.google.com/file/d/1QQpEQZbDD9pmW2qrhYsx5N9XYQ5bJ5dM/view)
+
 10. Create another service implementation TrackDummyServiceImpl. Use @Primary and
 @Qualifier annotations to specify which implementation to use.
 11. Use @Profile to run the application with the existing service implementation, and the new
