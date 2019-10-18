@@ -23,7 +23,7 @@ public class Runner implements CommandLineRunner {
     @Override
     public void run(String... args) throws MusicAlreadyExistsException {
         System.out.println(trackName);
-        Music music = new Music(3330, trackName, trackcomment);
+        Music music = new Music("3330", trackName, trackcomment);
         try {
 
             musicService.saveTrack(music);

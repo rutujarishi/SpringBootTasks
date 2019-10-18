@@ -6,26 +6,21 @@ import com.stackroute.respository.MusicRepository;
 import com.stackroute.domain.Music;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+
 @Service
-@Primary
-@Profile("prod")
 public class MusicServiceImpl implements MusicService {
 
-    private MusicRepository musicRepository;
 
+    private MusicRepository musicRepository;
     @Autowired
     public MusicServiceImpl(MusicRepository musicRepository)
-    {
-        this.musicRepository=musicRepository;
-    }
-
+    { this.musicRepository=musicRepository;}
     @Override
     public Music saveTrack(Music track)throws MusicAlreadyExistsException{
-        System.out.println("enter the serviceimpl");
         if(musicRepository.existsById(track.getTrackId()))
         {
             throw new MusicAlreadyExistsException("Already Exist");
@@ -46,30 +41,38 @@ public class MusicServiceImpl implements MusicService {
     }
 
     @Override
-    public boolean UpdateComments(int trackId,String trackComments) throws TrackNotFoundException {
-        if(!(musicRepository.existsById(trackId)))
-        {
-            throw new TrackNotFoundException("Not Found");
-        }
-       Music music = musicRepository.getOne(trackId);
+    public boolean UpdateComments(String trackId,String trackComments) {
+       Music music = musicRepository.findById(trackId).get();
        music.setTrackComments(trackComments);
        musicRepository.save(music);
         return true;
     }
 
     @Override
-    public boolean deleteTrack(int trackId) throws TrackNotFoundException {
-        if(!(musicRepository.existsById(trackId)))
-        {
-            throw new TrackNotFoundException("Not Found");
-        }
-        musicRepository.deleteById(trackId);
-        return true;
+    public Music deleteTrack(Music music) throws TrackNotFoundException {
+
+            if(!(musicRepository.existsById(music.getTrackId())))
+            {
+                throw new TrackNotFoundException("Not Found");
+            }
+            Music music1 = new Music();
+            music1.setTrackId(music.getTrackId());
+            music1.setTrackName(music.getTrackName());
+            music1.setTrackComments(music.getTrackComments());
+            musicRepository.deleteById(music.getTrackId());
+            return music1;
     }
 
     @Override
     public List<Music> findTitleByName(String trackName) {
-       List<Music> list= musicRepository.findTitleByName(trackName);
-        return  list;
+//        List<Music> list= musicRepository.findTitleByName(trackName);
+        return  new ArrayList<>();
     }
+
+
+//    @Override
+//    public List<Music> findTitleByName(String trackName) {
+//       List<Music> list= musicRepository.findTitleByName(trackName);
+//        return  list;
+//    }
 }

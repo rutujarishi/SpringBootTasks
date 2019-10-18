@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -49,33 +50,37 @@ public class TrackDummyServiceImpl implements MusicService {
     }
 
     @Override
-    public boolean UpdateComments(int trackId,String trackComments) throws TrackNotFoundException {
+    public boolean UpdateComments(String trackId,String trackComments) throws TrackNotFoundException {
         System.out.println("Enter the track dummy impl");
         if(!(musicRepository.existsById(trackId)))
         {
             throw new TrackNotFoundException("Not Found");
         }
-        Music music = musicRepository.getOne(trackId);
+        Music music = musicRepository.findById(trackId).get();
         music.setTrackComments(trackComments);
         musicRepository.save(music);
         return true;
     }
 
     @Override
-    public boolean deleteTrack(int trackId) throws TrackNotFoundException {
+    public Music deleteTrack(Music music) throws TrackNotFoundException {
         System.out.println("Enter the track dummy impl");
-        if(!(musicRepository.existsById(trackId)))
+        if(!(musicRepository.existsById(music.getTrackId())))
         {
             throw new TrackNotFoundException("Not Found");
         }
-        musicRepository.deleteById(trackId);
-        return true;
+        Music music1 = new Music();
+        music1.setTrackId(music.getTrackId());
+        music1.setTrackName(music.getTrackName());
+        music1.setTrackComments(music.getTrackComments());
+        musicRepository.deleteById(music.getTrackId());
+        return  music1;
     }
 
     @Override
     public List<Music> findTitleByName(String trackName) {
         System.out.println("Enter the track dummy impl");
-        List<Music> list= musicRepository.findTitleByName(trackName);
-        return  list;
+//        List<Music> list= musicRepository.findTitleByName(trackName);
+        return  new ArrayList<>();
     }
 }

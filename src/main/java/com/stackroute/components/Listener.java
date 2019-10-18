@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Listener implements ApplicationListener<ContextRefreshedEvent> {
     private MusicService musicService;
+
     @Autowired
     public Listener(MusicService musicService){
         this.musicService = musicService;
@@ -20,11 +21,11 @@ public class Listener implements ApplicationListener<ContextRefreshedEvent> {
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         //System.out.println("jdhck");
         try {
-            musicService.saveTrack(new Music(45, "Listener", "comment"));
+            musicService.saveTrack(new Music("45", "Listener", "comment"));
         } catch (MusicAlreadyExistsException muzixAlreadyExists) {
             try {
                 Music music = new Music();
-                musicService.UpdateComments(45,"comments");
+                musicService.UpdateComments("45","comments");
             } catch (TrackNotFoundException e) {
                 System.out.println("Exceptions Thrown");
             }
